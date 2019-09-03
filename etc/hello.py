@@ -5,7 +5,7 @@ CONFIG = {
 		'--bind=0.0.0.0:8080',
 		'--daemon',
 		'--workers=2',
-		'--temout=60',
+		'--timeout=60',
 		'hello:app',
 	),
 }
