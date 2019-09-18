@@ -13,28 +13,43 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import patterns, include, url
 
 
 from django.contrib import admin
 
+admin.autodiscover()
+
+
 from qa import views
 
 
-urlpatterns = patterns('qa.views',                                              
+urlpatterns = patterns('',
 
-   url(r'^$', 'test'),                                                              
+    # Examples:
 
-   url(r'^login/.*$', 'test', name='login'),                                    
+    # url(r'^$', 'ask.views.home', name='home'),
 
-   url(r'^signup/.*', 'test', name='signup'),                                   
+    # url(r'^blog/', include('blog.urls')),
 
-   url(r'^question/(?P<id>[0-9]+)/$', 'test', name='question'),                 
+    url(r'^question/', include('qa.urls')),
 
-   url(r'^ask/.*', 'test', name='ask'),                                         
+    url(r'^$', include('qa.urls')),
 
-   url(r'^popular/.*', 'test', name='popular'),                                 
+    url(r'^login/.*$',views.login_view),
 
-   url(r'^new/.*', 'test', name='new'),                                         
+    url(r'^signup/.*$',views.signup),
 
-)  
+    url(r'^ask/.*$',views.question_add),
+
+    url(r'^popular/.*$',views.popular),
+
+    url(r'^answer/.*$',views.answer_add),
+
+    url(r'^question/(?P<question_id>[0-9]+)/answer/$', views.answer_add, name='answer_add'),
+
+    url(r'^new/.*$',views.test),
+
+    url(r'^admin/', include(admin.site.urls)),
+
+)
